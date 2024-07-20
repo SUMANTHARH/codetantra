@@ -1,4 +1,20 @@
 /*package q32085;
+import java.util.Scanner;
+
+public class HamiltonianCycles {
+	*/
+package q32085;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class HamiltonianCycles {
+    private int V;
+    private int[][] graph; 
+    private List<List<Integer>> allCycles;
+
+    public HamiltonianCycles(int[][] graph) {
+        this.graph = graph;
         this.V = graph.length;
         this.allCycles = new ArrayList<>();
     }
@@ -34,7 +50,7 @@
     }
 
 
-	 private boolean isSafe(int v, int[] path, int pos) {
+private boolean isSafe(int v, int[] path, int pos) {
         if (graph[path[pos - 1]][v] == 0) {
             return false;
         }
@@ -66,10 +82,25 @@
                 graph[i][j] = scanner.nextInt();
             }
         }
-        HamiltonianCycles hc = new HamiltonianCycles(graph);
+	HamiltonianCycles hc = new HamiltonianCycles(graph);
         hc.findHamiltonianCycles();
         List<List<Integer>> cycles = hc.getAllCycles();
 
         if (cycles.isEmpty()) {
             System.out.println("No Hamiltonian Cycle found.");
+        } else {
+            System.out.println("Hamiltonian Cycles are:");
+            for (List<Integer> cycle : cycles) {
+                for (int i = 0; i < cycle.size(); i++) {
+                    System.out.print((cycle.get(i) + 1));
+                    if (i != cycle.size() - 1) {
+                        System.out.print("-->");
+                    }
+                }
+                System.out.println();
+            }
+        }
+
+        scanner.close();
+	}
 }
