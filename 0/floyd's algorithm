@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class FloydAlgorithm{
+    final static int INF = 99999;
+
+    void floydWarshall(int graph[][], int numCities) {
+        int dist[][] = new int[numCities][numCities];
+        int i, j, k;
+
+        // Initialize the solution matrix same as input graph matrix
+        for (i = 0; i < numCities; i++)
+            for (j = 0; j < numCities; j++)
+                dist[i][j] = graph[i][j];
+
+        // Adding vertices individually
+        for (k = 0; k < numCities; k++) {
+            for (i = 0; i < numCities; i++) {
+                for (j = 0; j < numCities; j++) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+
+        printSolution(dist, numCities);
+    }
+// Type Content here...
+ void printSolution(int dist[][], int numCities) {
+        System.out.println("Shortest paths between all cities:");
+        for (int i = 0; i < numCities; i++) {
+            for (int j = 0; j < numCities; j++) {
+                    System.out.print(dist[i][j] + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.print("Enter the number of cities: ");
+        int numCities = sc.nextInt();
+
+        int graph[][] = new int[numCities][numCities];
+        
+        System.out.println("Enter the distance matrix for the network:");
+        for (int i = 0; i < numCities; i++) {
+            for (int j = 0; j < numCities; j++) {
+                graph[i][j] = sc.nextInt();
+            }
+        }
+        
+        FloydAlgorithm fw = new FloydAlgorithm();
+        fw.floydWarshall(graph, numCities);
+    }
+}
+
+
+
+
